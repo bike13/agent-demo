@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>电商智能体演示系统</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部用户切换区域 -->
+        <header class="header">
+            <h1>电商智能体演示系统</h1>
+            <div class="user-switcher">
+                <label>当前用户：</label>
+                <select id="userSelect">
+                    <option value="">请选择用户</option>
+                </select>
+                <div id="userInfo" class="user-info"></div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <!-- 左侧导航 -->
+            <nav class="sidebar">
+                <button class="nav-btn active" data-page="users">用户管理</button>
+                <button class="nav-btn" data-page="products">商品管理</button>
+                <button class="nav-btn" data-page="orders">订单管理</button>
+                <button class="nav-btn" data-page="agent">智能体对话</button>
+            </nav>
+
+            <!-- 右侧内容区 -->
+            <main class="content">
+                <!-- 用户管理页面 -->
+                <div id="users-page" class="page active">
+                    <h2>用户列表</h2>
+                    <div id="usersList"></div>
+                </div>
+
+                <!-- 商品管理页面 -->
+                <div id="products-page" class="page">
+                    <h2>商品管理</h2>
+                    <div class="actions">
+                        <button id="addProductBtn" class="btn btn-primary">新增商品</button>
+                    </div>
+                    <div id="productsList"></div>
+                </div>
+
+                <!-- 订单管理页面 -->
+                <div id="orders-page" class="page">
+                    <h2>订单列表</h2>
+                    <div id="ordersList"></div>
+                </div>
+
+                <!-- 智能体对话页面 -->
+                <div id="agent-page" class="page">
+                    <h2>智能体对话</h2>
+                    <div class="chat-container">
+                        <div id="chatMessages" class="chat-messages"></div>
+                        <div class="chat-input-area">
+                            <div class="input-group">
+                                <input type="text" id="chatInput" placeholder="输入消息或点击麦克风语音输入...">
+                                <button id="voiceBtn" class="btn-icon" title="语音输入">
+                                    <span id="voiceIcon">🎤</span>
+                                </button>
+                                <button id="sendBtn" class="btn btn-primary">发送</button>
+                            </div>
+                            <div id="voiceStatus" class="voice-status"></div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 商品表单模态框 -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="modalTitle">新增商品</h3>
+            <form id="productForm">
+                <input type="hidden" id="productId">
+                <label>商品名称：<input type="text" id="productName" required></label>
+                <label>商品描述：<textarea id="productDescription"></textarea></label>
+                <label>单价：<input type="number" id="productPrice" step="0.01" min="0.01" required></label>
+                <label>库存数量：<input type="number" id="productStock" min="0" required></label>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 购买商品模态框 -->
+    <div id="buyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeBuyModal()">&times;</span>
+            <h3>购买商品</h3>
+            <form id="buyForm">
+                <input type="hidden" id="buyProductId">
+                <div id="buyProductInfo"></div>
+                <label>购买数量：<input type="number" id="buyQuantity" min="1" value="1" required></label>
+                <div id="buyTotalAmount"></div>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">确认购买</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeBuyModal()">取消</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/speech-input.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
